@@ -14,7 +14,9 @@ size-plugin.json
 .env
 .idea
 .vscode
-jsconfig.json
+
+# Optional eslint cache
+.eslintcache
 
 # Testing
 *.mp4

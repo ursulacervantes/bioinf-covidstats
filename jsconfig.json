@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs",
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": "src",
+        "paths": {
+            "@pages/*": [
+                "src/pages/*"
+            ],
+            "@components/*": [
+                "src/components/*"
+            ],
+            "@context/*": [
+                "src/context/*"
+            ],
+            "@hooks/*": [
+                "src/hooks/*"
+            ],
+            "@util/*": [
+                "src/util/*"
+            ],
+            "@public/*": [
+                "public/*"
+            ]
+        }
+    },
+    "include": [
+        "src"
+    ],
+    "exclude": [
+        ".vscode",
+        "bin",
+        "build",
+        "docs",
+        "lib",
+        "node_modules",
+        ".git"
+    ]
+}
