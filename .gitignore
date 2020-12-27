@@ -1,0 +1,37 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Dependencies
+node_modules
+
+# Production
+build
+lib
+src/nginx/generator/build
+webpack-assets.json
+size-plugin.json
+
+# IDE
+.env
+.idea
+.vscode
+jsconfig.json
+
+# Testing
+*.mp4
+**/cypress/screenshots
+**/cypress/videos
+coverage
+cypress.env.json
+fail-report*.json
+routes.dynamic.json
+screenshots
+src/tests/**/cypress/fixtures
+test-report.xml
+.nyc_output
+test-rail-report.json
+
+# Miscellaneous
+.DS_Store
+*.hot-update.*
+*.log
+*.log.*
