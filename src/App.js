@@ -5,10 +5,11 @@ import {
   Route,
   Link
 } from "react-router-dom"
-import './App.css'
+
 import Home from 'pages/Home'
 import About from 'pages/About'
 import Dashboard from 'pages/Dashboard'
+import './App.css'
 
  const App = () => {
   return (
