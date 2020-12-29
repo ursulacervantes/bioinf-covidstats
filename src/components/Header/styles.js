@@ -13,10 +13,9 @@ const header = props => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    boxShadow: '0 0 transparent',
+    boxShadow: '0 2px 12px 0 rgba(0,0,0,.06)',
     willChange: 'box-shadow',
     transitionDuration: '250ms',
-
 })
 
 
@@ -24,7 +23,7 @@ const wrapper = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: `0 10px`,
+    padding: `20px 2px`,
     width: '100%',
     position: 'relative',
 
@@ -59,14 +58,18 @@ const link = {
     padding: '10px 20px',
 
     '[aria-current="true"]': {
-        color: 'red',
+        color: 'blue',
     },
 
-    ':hover': { color: 'red' },
+    ':hover': { color: 'blue' },
 
     ':focus': {
         outline: 'none',
     },
+}
+
+const linkItem = {
+    textDecoration: 'none',
 }
 
 const logoWrapper = {
@@ -87,6 +90,7 @@ export default StyleSheet.create({
     header,
     wrapper,
     link,
+    linkItem,
     linksWrapper,
     logoWrapper,
 })

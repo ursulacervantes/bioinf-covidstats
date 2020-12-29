@@ -1,5 +1,5 @@
 import React from 'react'
-import { createComponent } from 'react-fela'
+import { createComponent, connect } from 'react-fela'
 import { Link } from 'react-router-dom'
 import styles from './styles'
 
@@ -8,20 +8,21 @@ const NavigationWrapper = createComponent(styles.wrapper, 'div', ['role'])
 const LogoWrapper = createComponent(styles.logoWrapper, 'div', ['role'])
 const LinksWrapper = createComponent(styles.linksWrapper, 'div')
 const Action = createComponent(styles.link, 'div')
+const ConnectedLink= connect(()=> styles.linkItem)(Link)
 
 const Header = () => {
     return (
         <HeaderWrapper>
             <NavigationWrapper>
                 <LogoWrapper>
-                    <Link to="/">ARIM</Link>
+                    <ConnectedLink to="/">ARIM</ConnectedLink>
                 </LogoWrapper>
                 <LinksWrapper>
-                    <Action>
-                        <Link to="/dashboard">Estadística General</Link>
+                    <Action>    
+                        <ConnectedLink to="/dashboard">Estadística General</ConnectedLink>
                     </Action>
                     <Action>
-                        <Link to="/about">Acerca</Link>
+                        <ConnectedLink to="/about">Acerca</ConnectedLink>
                     </Action>
                     
                 </LinksWrapper>
