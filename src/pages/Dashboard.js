@@ -1,12 +1,9 @@
 import React from 'react'
-import ComorbidityBar from 'components/ComorbidityBar'
+import GeneralStatistics from 'components/GeneralStatistics'
 
 const Dashboard = () => {
     return (
-        <div>
-            <h2>Dashboard</h2>
-            <ComorbidityBar/>
-        </div>
+        <GeneralStatistics />
     )
 }
 

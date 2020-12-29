@@ -1,8 +1,9 @@
 import React from 'react'
-import { Bar } from '@nivo/bar'
+import { ResponsiveBar } from '@nivo/bar'
 
 const CustomBarComponent = ({
     data,
+    keys,
 
     x,
     y,
@@ -26,8 +27,8 @@ const CustomBarComponent = ({
 
     theme,
 }) => {
-    const y1 = (data.data.value - data.data.error[0]) * 20
-    const y2 = (data.data.value - data.data.error[1]) * 20
+    const y1 = (data.data[data.id] - data.data.error[0]) * 15
+    const y2 = (data.data[data.id] - data.data.error[1]) * 15
     const x1 = (width / 2)
 
     const handleTooltip = e => showTooltip(tooltip, e)
@@ -74,13 +75,15 @@ const CustomBarComponent = ({
     )
 }
 
-const BarChart = ({ data }) => (
-    <Bar
+const BarChart = ({ data, groupMode, indexBy, keys, legends, maxValue }) => (
+    <ResponsiveBar
         barComponent={CustomBarComponent}
         data={data}
-        width={800}
-        height={800}
-        indexBy="name"
+        indexBy={indexBy}
+        keys={keys}
+        groupMode={groupMode}
+        legends={legends}
+        maxValue={maxValue}
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
         padding={0.3}
         valueScale={{ type: 'linear' }}
