@@ -9,10 +9,7 @@ app.use(cors())
 app.use(
     '/.netlify/functions/graphql',
     createProxyMiddleware({
-        target: 'http://localhost:9000',
-        pathRewrite: {
-            '^/\.netlify/functions/graphql': ''
-        }
+        target: 'http://localhost:9000/.netlify/functions/graphql',
     })
 )
 
