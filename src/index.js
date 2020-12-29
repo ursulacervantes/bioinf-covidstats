@@ -13,8 +13,9 @@ import App from './App';
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
-  // uri: 'http://localhost:4000/.netlify/functions/graphql'
-  uri: '/.netlify/functions/graphql'
+  uri: process.env.NODE_ENV === 'development'
+    ? 'http://localhost:4000/.netlify/functions/graphql'
+    : '/.netlify/functions/graphql'
 })
 
 const client = new ApolloClient({
