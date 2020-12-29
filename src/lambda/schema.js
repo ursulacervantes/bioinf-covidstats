@@ -19,17 +19,17 @@ const typeDefs = gql`
 `
 
 export default {
-  typeDefs,
-  resolvers: {
-    // Type Resolvers
+    typeDefs,
+    resolvers: {
+        // Type Resolvers
 
-    // Query Resolvers
-    Query: {
-      getComorbidity: getComorbidity.resolver,
+        // Query Resolvers
+        Query: {
+            getComorbidity: getComorbidity.resolver,
+        },
+
+        // Mutation Resolvers
+        // Mutation: {
+        // },
     },
-
-    // Mutation Resolvers
-    // Mutation: {
-    // },
-  },
 }

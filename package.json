@@ -13,7 +13,7 @@
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
     "apollo-link-http": "^1.5.17",
-    "apollo-server-express": "^2.19.1",
+    "apollo-server-lambda": "^2.19.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "fela": "^11.5.1",
@@ -21,7 +21,9 @@
     "fela-preset-web": "^11.5.1",
     "graphql": "^15.4.0",
     "graphql-tag": "^2.11.0",
-    "path": "^0.12.7",
+    "http-proxy-middleware": "^1.0.6",
+    "netlify-lambda": "^2.0.2",
+    "parcel-bundler": "^1.12.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-fela": "^11.5.1",
@@ -31,7 +33,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:lambda": "netlify-lambda serve src/lambda",
     "build": "react-scripts build",
+    "build:lambda": "netlify-lambda build src/lambda",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -52,10 +56,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11"
-  },
-  "type": "module"
+  }
 }

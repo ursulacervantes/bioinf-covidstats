@@ -13,7 +13,7 @@ import App from './App';
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
-  uri: 'http://localhost:4000/graphql'
+  uri: '/.netlify/functions/graphql'
 })
 
 const client = new ApolloClient({

@@ -22,13 +22,21 @@ const GET_MORBIDITY = gql`
 `
 
 const ComorbidityBar = () => {
-    const { data } = useQuery(GET_MORBIDITY, {
+    const { data, loading, error } = useQuery(GET_MORBIDITY, {
         variables: {
             dateFrom: "",
             dateTo: "",
             sex: "",
         },
-  })
+    })
+
+    if(error) {
+        return "Error"
+    }
+
+    if (loading) {
+        return "Cargando"
+    }
 
     return (
         <div>
