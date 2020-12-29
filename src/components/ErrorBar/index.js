@@ -1,15 +1,6 @@
 import React from 'react'
 import { Bar } from '@nivo/bar'
 
-const data = [
-    { "name": "N/A", "value": 14.1, "error": [13.8, 14.5] },
-    { "name": "Cáncer", "value": 25.2, "error": [23, 27] },
-    { "name": "Cardiovascular", "value": 27, "error": [25.5, 29.25] },
-    { "name": "Diabetes", "value": 22.25, "error": [20.15, 24.2] },
-    { "name": "Pulmonar", "value": 24.85, "error": [22.75, 26.35] },
-    { "name": "Fumador", "value": 21.01, "error": [19.8, 22.3] }
-]
-
 const CustomBarComponent = ({
     data,
 
@@ -83,7 +74,7 @@ const CustomBarComponent = ({
     )
 }
 
-const BarChart = (/*{ data }*/) => (
+const BarChart = ({ data }) => (
     <Bar
         barComponent={CustomBarComponent}
         data={data}
@@ -117,8 +108,5 @@ const BarChart = (/*{ data }*/) => (
         motionDamping={15}
     />
 )
-
-
-
 
 export default BarChart

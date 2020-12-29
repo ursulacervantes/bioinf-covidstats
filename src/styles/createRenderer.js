@@ -42,7 +42,7 @@ try {
     enhancers = []
 }
 
-export default () =>
+const renderer = () =>
     createRenderer({
         plugins,
         enhancers,
@@ -58,3 +58,5 @@ export default () =>
         ].map(mq => mq.replace('@media ', '')),
         filterClassName: className => !DISABLED_CLASSNAMES.includes(className),
     })
+
+export default renderer

@@ -1,11 +1,11 @@
 import React from 'react'
-import ErrorBar from 'components/ErrorBar'
+import ComorbidityBar from 'components/ComorbidityBar'
 
 const Dashboard = () => {
     return (
         <div>
             <h2>Dashboard</h2>
-            <ErrorBar />
+            <ComorbidityBar/>
         </div>
     )
 }

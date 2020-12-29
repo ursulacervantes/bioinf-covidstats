@@ -1,0 +1,15 @@
+query(
+  $dateFrom: String
+  $dateTo: String
+  $sex: String
+) {
+  results: getComorbidity(
+    dateFrom: $dateFrom
+    dateTo: $dateTo
+    sex: $sex
+  ) {
+     name
+     value
+     error
+  }
+}
