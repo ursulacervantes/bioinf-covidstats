@@ -3,9 +3,9 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom"
 
+import Layout from 'components/Layout'
 import Home from 'pages/Home'
 import About from 'pages/About'
 import Dashboard from 'pages/Dashboard'
@@ -14,21 +14,7 @@ import './App.css'
  const App = () => {
   return (
     <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-        </ul>
-
-        <hr />
-
+      <Layout>
         <Switch>
           <Route exact path="/">
             <Home />
@@ -40,7 +26,7 @@ import './App.css'
             <Dashboard />
           </Route>
         </Switch>
-      </div>
+      </Layout>
     </Router>
   )
 }

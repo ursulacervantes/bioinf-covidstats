@@ -18,6 +18,9 @@
             "@hooks/*": [
                 "src/hooks/*"
             ],
+            "@styles/*": [
+                "src/styles/*"
+            ],
             "@util/*": [
                 "src/util/*"
             ],
