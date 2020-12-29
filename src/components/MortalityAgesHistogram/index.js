@@ -1,6 +1,5 @@
 import React from 'react'
 import { gql, useQuery } from '@apollo/react-hooks'
-import ErrorBar from 'components/ErrorBar'
 import { ResponsiveBar } from '@nivo/bar'
 
 const GET_MORTALITY = gql`

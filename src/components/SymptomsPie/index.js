@@ -50,7 +50,6 @@ const SymptomsPie = () => {
             colors={{ scheme: 'nivo' }}
             borderWidth={1}
             borderColor={{ from: 'color', modifiers: [['darker', '0.1']] }}
-            radialLabelsTextXOffset={12}
             radialLabelsTextColor="#333333"
             radialLabelsLinkDiagonalLength={15}
             radialLabelsLinkHorizontalLength={8}
