@@ -1,0 +1,20 @@
+
+query(
+        $dateFrom: String
+        $dateTo: String
+        $sex: String
+        $bloodType: String
+        $HRFactor: String
+    ) {
+        results: getSymptoms(
+            dateFrom: $dateFrom
+            dateTo: $dateTo
+            sex: $sex
+            bloodType: $bloodType
+            HRFactor: $HRFactor
+        ) {
+            name
+            value
+            id
+        }
+    }

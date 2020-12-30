@@ -1,28 +1,12 @@
 import React from 'react'
 import { gql, useQuery } from '@apollo/react-hooks'
-
+import { loader } from 'graphql.macro';
 import ErrorBar from 'components/ErrorBar'
 
-const GET_MORBIDITY = gql`
-    query(
-    $dateFrom: String
-    $dateTo: String
-    $sex: String
-    ) {
-    results: getComorbidity(
-        dateFrom: $dateFrom
-        dateTo: $dateTo
-        sex: $sex
-    ) {
-        name
-        value
-        error
-    }
-    }
-`
+const currentUserQuery = loader('./query.graphql');
 
 const ComorbidityBar = () => {
-    const { data, loading, error } = useQuery(GET_MORBIDITY, {
+    const { data, loading, error } = useQuery(currentUserQuery, {
         variables: {
             dateFrom: "",
             dateTo: "",

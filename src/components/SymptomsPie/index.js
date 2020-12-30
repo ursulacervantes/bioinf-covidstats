@@ -1,30 +1,12 @@
 import React from 'react'
-import { gql, useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
+import { loader } from 'graphql.macro';
 import { ResponsivePie } from '@nivo/pie'
 
-const GET_SYMPTOMS = gql`
-    query(
-        $dateFrom: String
-        $dateTo: String
-        $sex: String
-        $bloodType: String
-        $HRFactor: String
-    ) {
-        results: getSymptoms(
-            dateFrom: $dateFrom
-            dateTo: $dateTo
-            sex: $sex
-            bloodType: $bloodType
-            HRFactor: $HRFactor
-        ) {
-            name
-            value
-            id
-        }
-    }
-`
+const query = loader('./query.graphql');
+
 const SymptomsPie = () => {
-    const { data, loading, error } = useQuery(GET_SYMPTOMS, {
+    const { data, loading, error } = useQuery(query, {
         variables: {
             dateFrom: "",
             dateTo: "",

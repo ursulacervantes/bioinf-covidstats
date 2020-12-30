@@ -1,0 +1,14 @@
+query(
+        $dateFrom: String
+        $dateTo: String
+    ) {
+        results: getMortalityBySex(
+            dateFrom: $dateFrom
+            dateTo: $dateTo
+        ) {
+            ages
+            varones
+            mujeres
+            error
+        }
+    }
