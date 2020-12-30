@@ -1,0 +1,153 @@
+*# GraphQL*
+
+> GraphQL is a query language for APIs and a runtime for fulfilling those
+> queries with existing data. GraphQL provides a complete and understandable
+> description of the data in the API, gives clients the power to ask for exactly
+> what they need and nothing more, makes it easier to evolve APIs over time, and
+> enables powerful developer tools.
+
+
+*## Updating the API*
+
+The GraphQL API lives in the `lamba/api` directory. It is divided into topics which
+more or less map to the API surface from back-end and third parties. To update
+the API layer, one needs to add a new operation and its associated resolver to
+the schema.
+
+For the sake of the explanation, let’s assume there is an API about cats with a
+query to get a new cat, and a mutation to pet a cat. For instance:
+
+```bash
+cats/
+├── getCat/
+│   ├── index.js
+│   └── resolver.js
+└── petCat/
+    ├── index.js
+    └── resolver.js
+```
+
+*### Updating the schema*
+
+The schema is a definition of the API. It defines the name of the query, its
+arguments (if any), and how it should be resolved (see
+[how to write a resolver](_#writing-the-resolver_)).
+
+Considering an API to get a cat (`getCat`), the schema might look more or less
+like this:
+
+```js
+import gql from 'graphql-tag'
+import resolver from './resolver'
+
+const query = `getCat: Cat`
+const definition = gql`
+  type Cat {
+    id: ID
+    color: String
+    breed: String
+    age: Int
+  }
+`
+
+export default {
+  query,
+  resolver,
+  types: definition,
+}
+```
+
+The one for the mutation to pet the cat, like this:
+
+```js
+import resolver from './resolver'
+
+const mutation = `petCat(name: String!): StatusAndErrors`
+
+export default {
+  mutation,
+  resolver,
+}
+```
+
+> ⚠️ These new schema additions need to be added to the schema definition
+> (`src/lambda/schema.js`).
+
+*### Writing the resolver*
+
+A GraphQL resolver receives 3 arguments:
+
+- `obj`: usually unused; in case of nested resolvers, this argument contains the
+  parent object.
+- `args`: the arguments for the query, as defined in the schema.
+- `context`: the GraphQL context, containing the server `request` and
+  `response`.
+
+In its simplest form, a resolver fetching some data — such as the one to get a
+cat — might look like this:
+
+```js
+import axios from 'axios'
+import { API_BASE_URL } from 'constants/api'
+
+export default async (obj, args, context) => {
+  const endpoint = API_BASE_URL + '/api/cats'
+  const response = await axios.get(endpoint)
+
+  return response.data
+}
+```
+
+*## Querying data*
+
+Querying data usually looks like this:
+
+```js
+import { useQuery } from 'react-apollo'
+import { loader } from 'graphql.macro';
+
+const getCatQuery = loader('./query.graphql');
+
+const Component = props => {
+  const { data, loading, error } = useQuery(getCatQuery, {
+    variables: { name: 'Meow' },
+  })
+
+  if (loading) {
+    // Handle loading…
+  }
+
+  if (error) {
+    // Handle possible network error…
+  }
+
+  // Do something with the data…
+}
+```
+
+And the query file (`query.graphql`):
+
+```graphql
+query getCat($name: String) {
+  # `cat: ` here means the data (`breed` and `color`) will be found at
+  # `data.cat` instead of `data.getCat`.
+  cat: getCat(name: $name) {
+    breed
+    color
+  }
+}
+```
+
+> ℹ️ A nice and simple way to play around with queries without having to bother
+> with React boilerplate is to use GraphiQL. It can be reached at `/graphql` in
+> the browser on non-live environments.
+
+It is important that the component is resilient to the absence of data. When
+rendered dynamically, the data gets fetched asynchronously which implies lack of
+data while loading. There are multiple ways to handle this (displaying a loading
+state, not rendering the component, displaying tombstones…), and so far the
+approach depends on the component and its role.
+
+In order to further decouple business logic from view concerns, one could decide
+to handle the loading state and the data collection (picking and naming data for
+the view) in the container itself rather than the component.

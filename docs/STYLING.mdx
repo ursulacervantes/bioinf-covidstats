@@ -1,0 +1,341 @@
+*# Styling*
+
+Our styling layer runs on [Fela](_https://fela.js.org_). Fela allows us to
+write styles in a component-driven manner and generates critical CSS and atomic
+classes for high performance. It’s also a thriving ecosystem of plugins and
+libraries.
+
+*## Architecture*
+
+Components all have their own folder (PascalCase), no matter whether they need
+styles or not. When they do, they have a `styles.js` file next to their
+`index.js` file.
+
+```
+└── MyComponent/
+    ├── index.js
+    └── styles.js
+```
+
+This file is usually imported as `styles`.
+
+```js
+import styles from './styles'
+```
+
+The `styles.js` file exports a
+[`StyleSheet`](_https://github.com/rofrischmann/fela/blob/master/packages/fela-tools/docs/StyleSheet.md_)
+(from `fela-tools`) which makes sure to wrap all JavaScript objects with a
+function to become proper Fela rules.
+
+```js
+import { StyleSheet } from 'fela-tools'
+
+const base = {
+  display: 'flex',
+}
+
+export default StyleSheet.create({
+  base,
+})
+```
+
+*## Syntax*
+
+*### Units*
+
+- ***Lengths:***
+  - Sizes are usually expressed relative to the font size (`em`).
+  - Font sizes (`font-size`) are expressed in percentiles of the current size
+    (`%`).
+  - Font-size-agnostic sizes are expressed in root-em (`rem`).
+  - Single-pixel sizes are expressed in pixels (`1px`).
+  - Viewport-related sizes are expressed in viewport fractions (`vw`, `vh`).
+  - Sizes relative to a number of characters are expressed in characters (`ch`).
+  - Line heights (`line-height`) are expressed without unit.
+  - Zero-values are expressed without unit.
+- ***Angles:*** Angles are expressed in degrees (`deg`) or alternatively in turns
+  (`turn`).
+- ***Durations:*** [Durations](_#durations_) are expressed in milliseconds (`ms`),
+  even when null (`0ms`).
+
+*### Media queries*
+
+Media queries are authored as nested objects with the media query string as a
+key.
+
+```js
+const foo = {
+  '@media (min-width: 1337px)': {
+    width: '50%',
+  },
+}
+```
+
+Most breakpoints are shared across projects and can be found in
+`styles/variables`. Some are project specific and live in the project’s
+variables.
+
+```js
+import { SMALL_SCREEN } from 'styles/variables'
+
+const foo = {
+  [SMALL_SCREEN]: {
+    width: '10%',
+  },
+}
+```
+
+*### Shorthands*
+
+Fela converts all declarations into single-purpose CSS classes (also known as
+“atomic classes”). For maximum reusability, shorthand properties should be
+divided into their individual components.
+
+Properties for which the value follows a specific pattern or order are
+automatically split on the Fela layer. These are: `padding`, `margin`, `flex`,
+`border`, `borderStyle`, `borderColor`, `borderWidth` and `outline`.
+
+All the other non-deterministic shorthands (that is, properties for which the
+value follows no particular order, such as `transition`) need to be split by
+hand.
+
+> ⚠️ The breaking down of shorthands can occasionally have unexpected results.
+> For example, `outline: 0` results in `outline-width: 0;` whereas
+> `outline: 'none'` results in `outline-style: none;`. In Safari, the former has
+> no effect on non-focusable elements (elements made focusable with `tabindex`),
+> while the latter results in what the author intended: to hide the outlines.
+> For this reason, make sure to check styles in other browsers and opt for
+> declarations that work universally.
+
+```js
+// 1. The `margin` property is divided into its directional sub-properties
+//    automatically.
+// 2. The `border` property is divided into its directional sub-properties
+//    automatically.
+// 3. The `transition` property cannot be easily split, even with a helper,
+//    therefore needs to be divided manually at authoring time.
+const foo = {
+  margin: '1em auto' /* 1 */,
+  border: '1px solid silver' /* 2 */,
+  transitionProperty: 'opacity' /* 3 */,
+  transitionDuration: '250ms' /* 3 */,
+}
+```
+
+*### Conditional styling*
+
+One of the interesting benefits of using Fela is that we have access to
+components props in rules. This makes it possible to perform dynamic styling
+based on the state of the application.
+
+```js
+const foo = props => ({
+  height: props.collapsed ? 0 : '100%',
+  opacity: props.disabled ? 0.5 : undefined,
+})
+```
+
+> ℹ️ Any value resolving to `undefined` will be discarded by the Fela renderer.
+
+When multiple properties have their value based on a property, we can spred an
+object like so:
+
+```js
+const foo = props => ({
+  color: 'red',
+
+  ...(props.disabled
+    ? {
+        opacity: 0,
+        visibility: 'hidden',
+        pointerEvents: 'none',
+      }
+    : {}),
+})
+```
+
+> ⚠️ It is important to use a ternary instead of a conditional expression (e.g.
+> `...(disabled && { … })`) as it could end up trying to spread `false` (after
+> Babel compilation), which would cause issues on old Android devices.
+
+*## How to style*
+
+*### DOM elements*
+
+To style DOM elements, wrap them with the
+[`createComponent`](_http://fela.js.org/docs/guides/UsageWithReact.html_) function
+from `react-fela` (or `createComponentWithProxy` when wanting to pass all props
+through). This function expects a
+[Fela rule](_http://fela.js.org/docs/basics/Rules.html#_) and an element name.
+
+```js
+const Wrapper = createComponent(styles.myRule, 'div')
+```
+
+By default `createComponent` only passes the following props to the underlying
+element: `className`, `id` and `style`. Anything else gets omitted. To force the
+passing down of props, you can pass an array of prop names as the 3rd argument.
+
+```js
+const Wrapper = createComponent(styles.myRule, 'div', ['aria-hidden'])
+```
+
+*### React components*
+
+Styling React components is slightly more tricky, because it usually implies
+several layers of styling which needs to be combined in the correct order.
+
+The rule of thumb is that components should be exported with
+[`createComponent`](_https://fela.js.org/docs/api/bindings/createComponent.html_)
+or
+[`createComponentWithProxy`](_https://fela.js.org/docs/api/bindings/createComponentWithProxy.html_)
+so their styles can be extended with the `extend` prop. For instance:
+
+```jsx
+import React from 'react'
+import { createComponentWithProxy } from 'react-fela'
+import styles from './styles'
+
+const Title = props => <h1 className={props.className}>{props.children}</h1>
+
+export default createComponentWithProxy(styles, Title)
+```
+
+When using this component without intention of overwriting its styles, it can be
+used normally. If its styles need to be customised however, it needs to receive
+the rule as `extend` prop.
+
+```jsx
+import Title from '@components/Title'
+import styles from './styles'
+
+const CustomTitle = props => (
+  <Title extend={styles.title}>{props.children}</Title>
+)
+```
+
+When doing so, Fela will combine rules in the correct precedence order before
+resolving them into class names and passing them down to the final `className`
+prop. This is important as it makes sure not to have conflicting declarations
+whose order is non-deterministic.
+
+*#### About Fela proxies*
+
+There are two ways to create “Fela components”: `createComponent` and
+`createComponentWithProxy`. Both basically do the same thing with one
+difference:
+
+A component created with `createComponent` will pass no props down to the
+underlying DOM element or React component (whatever is provided as a 2nd
+argument) to the exception of `id` (for some reason) and `className` (since
+that’s the entire point of the Fela component), as well as the ones passed as a
+3rd argument.
+
+In the following example, the `id` prop is passed to the underlying `div` DOM
+element (by default), as well as the `aria-hidden` prop (as it is included in
+the 3rd argument), but not the `isActive` prop.
+
+```js
+const Component = createComponent(() => ({ color: 'red' }), 'div', [
+  'aria-hidden',
+])
+
+const tree = <Component id='foo' isActive aria-hidden />
+```
+
+A component created with `createComponentWithProxy` will pass all props down to
+the underlying DOM element or React component (whatever is provided as a 2nd
+argument) to the exception of the ones that are used in the styling rules.
+
+In the following example, the `id` prop is passed to the underlying `div` DOM
+element (by default), as well as the `aria-hidden` prop (since it is a proxy),
+but not the `isActive` prop (as it is used in the rule).
+
+```js
+const Component = createComponentWithProxy(
+  props => ({
+    color: 'red',
+    backgroundColor: props.isActive ? 'grey' : undefined,
+  }),
+  'div'
+)
+
+const tree = <Component id='foo' isActive aria-hidden />
+```
+
+*#### Example*
+
+As an example, let’s consider the following component:
+
+```js
+const Component = createComponentWithProxy(() => ({ color: 'red' }), 'div')
+```
+
+Now, let’s imagine that we want to override this declaration to make the color
+blue. The previous explanation tells us to do:
+
+```js
+<Component extend={() => ({ color: 'blue' })} />
+```
+
+In the current state of affairs, because `Component` is a Fela component (proxy
+in this case, but it doesn’t have to), when extending it with the `extend` prop,
+Fela will give the new styles precedence. Thus, our `color: 'blue'` declaration
+will be used, and the `color: 'red'` one will not be applied at all.
+
+Now let’s imagine `Component` was in fact written like this:
+
+```js
+import { RendererContext } from 'react-fela'
+
+const Component = props => {
+  const renderer = React.useContext(RendererContext)
+  const className = renderer.renderRule(() => ({ color: 'red' }))
+
+  return <div {...props} className={className} />
+}
+
+export default Component
+```
+
+What’s going to happen is that Fela will resolve both styling layers (the one
+from `Component` and the one passed to it) independently, therefore applying
+both `color: 'blue'` /_and_/ `color: 'red'`.
+
+At this stage, it is not possible to know which color the text will actually be
+since HTML class order is non-deterministic, resulting in the latest one defined
+in the stylesheet being the one used.
+
+That’s why it is important to export a Fela proxy for reusable components so
+their styles can be safely and predictably overwritten by Fela.
+
+*## Commenting*
+
+CSS is a tricky language, full of hacks and oddities. Because of this, anything
+that is not obvious at first glance should be commented.
+
+Comments should respect the following rules:
+
+- It should follow an empty line.
+- It should use single line comments (`//`).
+- It should precede the closest block (top-level or nested).
+- When commenting a specific line, it should be annotated with a number and
+  referenced in the explanation.
+- Annotations longer than 80 characters should wrap to the next line while
+  preserving the number indentation.
+
+Refer to the following example as a go-to guide:
+
+```js
+// This comment explains some oddities from the following rule. It wraps at 80
+// characters. This part can be skipped if unnecessary. Annotations are usually
+// the relevant comments.
+// 1. This is an annotation. It explains something specific about one line of
+//    code. It wraps after 80 characters and preserves the indentation with the
+//    number.
+const rule = {
+  marginBottom: '1em',
+  overflow: 'hidden' /* 1 */,
+}
+```

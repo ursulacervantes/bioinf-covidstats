@@ -1,5 +1,5 @@
 import React from 'react'
-import { gql, useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import { loader } from 'graphql.macro';
 import ErrorBar from 'components/ErrorBar'
 

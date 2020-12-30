@@ -1,0 +1,118 @@
+*# Naming*
+
+*## React components*
+
+In most cases, components should live in their own file, named after said file.
+
+***Don’t:***
+
+```js
+// components/Card/index.js
+const AppCard = props => {
+  // …
+}
+
+export default AppCard
+```
+
+***Do:***
+
+```js
+// components/Card/index.js
+const Card = props => {
+  // …
+}
+
+export default Card
+```
+
+React components wrapped with a Fela component should preserve their name, only
+with the `Styled` prefix. This makes it clear which component is used, and that
+their styles are complemented with a Fela component.
+
+***Don’t:***
+
+```js
+const LogoWithPadding = createComponent(styles.logo, Logo)
+```
+
+***Do:***
+
+```js
+const StyledLogo = createComponent(styles.logo, Logo)
+```
+
+*## Fela rules*
+
+Speaking of Fela, the rules should be named after the type of content they
+style, never the styles themselves, and without a prefix as they are strictly
+local.
+
+***Don’t:***
+
+```js
+const Copy = createComponent(styles.blueBackground, 'p')
+const ExploreCard = createComponent(styles.exploreCard, 'div')
+```
+
+***Do:***
+
+```js
+const Copy = createComponent(styles.copy, 'p')
+const ExploreCard = createComponent(styles.card, 'div')
+```
+
+*## Helpers*
+
+Helpers should be named after what their purpose and their name should start
+with a verb.
+
+***Don’t:***
+
+```js
+const aspectRatioDimensions = () => {}
+```
+
+***Do:***
+
+```js
+const getAspectRatioDimensions = () => {}
+```
+
+*## Booleans*
+
+Booleans should be given names that formulate a question. This is commonly
+achieved with prefixes such as “should”, “has”, or “is”.
+
+***Don’t:***
+
+```js
+const renderCard = Boolean(props.card) && Boolean(props.balance)
+const pendingTransactions = props.unconfirmedTransaction.length > 0
+const webTeamMember = sailorsList.includes(member)
+```
+
+***Do:***
+
+```js
+const shouldRenderCard = Boolean(props.card) && Boolean(props.balance)
+const hasPendingTransactions = props.unconfirmedTransaction.length > 0
+const isWebTeamMember = sailorsList.includes(member)
+```
+
+*## GraphQL operations*
+
+GraphQL operations should be named after what their purpose and their name
+should start with a verb, just like helpers.
+
+***Don’t:***
+
+```
+api/pies/symptoms
+```
+
+***Do:***
+
+```
+api/pies/getSymptoms
+```

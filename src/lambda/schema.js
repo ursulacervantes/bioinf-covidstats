@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
-import getComorbidity from './api/bars/comorbidity/index.js'
-import getSymptoms from './api/pies/symptoms/index.js'
-import getMortalityBySex from './api/histograms/mortalityAges/index.js'
+import getComorbidity from './api/bars/getComorbidity/index.js'
+import getSymptoms from './api/pies/getSymptoms/index.js'
+import getMortalityBySex from './api/histograms/getMortalityAges/index.js'
 
 const typeDefs = gql`
 
