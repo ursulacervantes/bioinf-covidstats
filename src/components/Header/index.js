@@ -1,30 +1,28 @@
 import React from 'react'
-import { createComponent, connect } from 'react-fela'
+import { createComponent } from 'react-fela'
 import { Link } from 'react-router-dom'
-import styles from './styles'
+import styles, { linkItem } from './styles'
 
 const HeaderWrapper = createComponent(styles.header, 'header', ['role'])
 const NavigationWrapper = createComponent(styles.wrapper, 'div', ['role'])
 const LogoWrapper = createComponent(styles.logoWrapper, 'div', ['role'])
 const LinksWrapper = createComponent(styles.linksWrapper, 'div')
 const Action = createComponent(styles.link, 'div')
-const ConnectedLink= connect(()=> styles.linkItem)(Link)
 
 const Header = () => {
     return (
         <HeaderWrapper>
             <NavigationWrapper>
                 <LogoWrapper>
-                    <ConnectedLink to="/">ARIM</ConnectedLink>
+                    <Link to="/" style={linkItem}>ARIM</Link>
                 </LogoWrapper>
                 <LinksWrapper>
                     <Action>    
-                        <ConnectedLink to="/dashboard">Estadística General</ConnectedLink>
+                        <Link to="/dashboard" style={linkItem}>Estadística General</Link>
                     </Action>
                     <Action>
-                        <ConnectedLink to="/about">Acerca</ConnectedLink>
+                        <Link to="/about" style={linkItem}>Acerca</Link>
                     </Action>
-                    
                 </LinksWrapper>
             </NavigationWrapper>
         </HeaderWrapper>

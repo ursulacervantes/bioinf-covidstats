@@ -2,9 +2,10 @@ import { StyleSheet } from 'fela-tools'
 import {
     SMALL_SCREEN,
     Z_ABOVE,
+    TYPOGRAPHY,
 } from 'styles/variables'
 
-const header = props => ({
+const header = {
     position: 'inherit',
     height: '60px',
     width: '100%',
@@ -16,8 +17,7 @@ const header = props => ({
     boxShadow: '0 2px 12px 0 rgba(0,0,0,.06)',
     willChange: 'box-shadow',
     transitionDuration: '250ms',
-})
-
+}
 
 const wrapper = {
     display: 'flex',
@@ -56,20 +56,18 @@ const link = {
     alignItems: 'center',
     justifyContent: 'center',
     padding: '10px 20px',
+    color: TYPOGRAPHY.typographyPrimaryDefault,
 
-    '[aria-current="true"]': {
-        color: 'blue',
-    },
-
-    ':hover': { color: 'blue' },
+    ':hover': { color: TYPOGRAPHY.typographySecondaryDefault, },
 
     ':focus': {
         outline: 'none',
     },
 }
 
-const linkItem = {
+export const linkItem = {
     textDecoration: 'none',
+    color: 'inherit',
 }
 
 const logoWrapper = {

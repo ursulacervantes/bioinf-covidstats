@@ -1,25 +1,12 @@
 import React from 'react'
-import { gql, useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
+import { loader } from 'graphql.macro';
 import { ResponsiveBar } from '@nivo/bar'
 
-const GET_MORTALITY = gql`
-    query(
-        $dateFrom: String
-        $dateTo: String
-    ) {
-        results: getMortalityBySex(
-            dateFrom: $dateFrom
-            dateTo: $dateTo
-        ) {
-            ages
-            varones
-            mujeres
-            error
-        }
-    }
-`
+const query = loader('./query.graphql');
+
 const MortalityAgesHistogram = () => {
-    const { data, loading, error } = useQuery(GET_MORTALITY, {
+    const { data, loading, error } = useQuery(query, {
         variables: {
             dateFrom: "",
             dateTo: "",
