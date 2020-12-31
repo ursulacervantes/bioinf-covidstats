@@ -11,7 +11,7 @@ const wrapper = {
 }
 
 const body = {
-    margin: '40px auto 0' ,
+    margin: '40px auto 140px' ,
 
     [SMALL_SCREEN]: {
         margin: '0 auto 20px',
