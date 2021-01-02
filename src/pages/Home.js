@@ -1,7 +1,8 @@
 import React from 'react'
-import Banner from 'components/Banner'
+import IntroBanner from 'components/IntroBanner'
+import InfoBanner from 'components/InfoBanner'
 
-const props = {
+const introBannerProps = {
     titlePrimary: 'Caracterizando al COVID-19',
     titleSecondary: 'Herramienta de análisis de datos de pacientes del COVID-19 en el Perú',
     content: `Esta herramienta abarca diversas dimensiones de los pacientes hospitalizados 
@@ -11,9 +12,17 @@ const props = {
     comportamiento/ sintomatología de la enfermedad de los pacientes en el Perú.`
 }
 
+const infoBannerProps = {
+    message: `Este trabajo fue financiado por el CONCYTEC-FONDECYT en el marco de la convocatoria 
+    Proyectos Especiales: Respuesta al Covid Concurso 2020-01 [número de contrato 035-2020-FONDECYT]`
+}
+
 const Home = () => {
     return (
-        <Banner {...props} />
+        <>
+            <IntroBanner {...introBannerProps} />
+            <InfoBanner {...infoBannerProps} />
+        </>
     )
 }
 

@@ -9,7 +9,7 @@ const TitlePrimary = createComponent(styles.titlePrimary, 'h2')
 const TitleSecondary = createComponent(styles.titleSecondary, 'h3')
 const Content = createComponent(styles.content, 'p')
 
-const Banner = (props) => {
+const IntroBanner = (props) => {
     return (
         <Container>
             <TitlePrimary>
@@ -25,4 +25,4 @@ const Banner = (props) => {
     )
 }
 
-export default Banner
+export default IntroBanner
