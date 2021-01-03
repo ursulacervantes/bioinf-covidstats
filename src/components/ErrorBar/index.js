@@ -105,7 +105,6 @@ const BarChart = ({ data, groupMode, indexBy, keys, legends, maxValue }) => (
         }}
         labelSkipWidth={12}
         labelSkipHeight={12}
-        labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
         animate={true}
         motionStiffness={90}
         motionDamping={15}
