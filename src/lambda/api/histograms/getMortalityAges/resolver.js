@@ -16,7 +16,7 @@ export default () => {
             }
 
             // data[0] could be 'varones' or 'mujeres'
-            r[d.name][data[0]] = d.value
+            r[d.name][data[0]] = d.value.toFixed(1)
 
             return r
         }, {})
