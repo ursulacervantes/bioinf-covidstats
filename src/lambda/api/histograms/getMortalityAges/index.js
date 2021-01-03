@@ -2,12 +2,17 @@ import gql from 'graphql-tag'
 import resolver from './resolver.js'
 
 const definition = gql`
+
+  type Error {
+    mujeres: [Float]
+    varones: [Float]
+  }
  
   type MortalityData {
     ages: String
     varones: Float
     mujeres: Float
-    error: [Float]
+    error: Error
   }
 
    type MortalityBySex {

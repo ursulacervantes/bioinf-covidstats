@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Banner from 'components/Banner'
+import IntroBanner from 'components/IntroBanner'
 import Team from 'components/Team'
 
 const props = {
@@ -13,7 +13,7 @@ const props = {
 const About = () => {
     return (
         <div>
-            <Banner {...props} />
+            <IntroBanner {...props} />
             <Team />
         </div>
     )

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { loader } from 'graphql.macro';
-import { ResponsiveBar } from '@nivo/bar'
+import ErrorBar from 'components/ErrorBar'
 
 const query = loader('./query.graphql');
 
@@ -22,7 +22,7 @@ const MortalityAgesHistogram = () => {
     }
 
     return (
-        <ResponsiveBar
+        <ErrorBar
             data={data.results.data}
             maxValue={data.results.maxValue}
             groupMode={"grouped"}

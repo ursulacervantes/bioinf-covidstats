@@ -6,6 +6,6 @@ export default () => {
 
     return {
         data: response.data,
-        maxValue: Math.round(max + 10)
+        maxValue: Math.round(max + 5)
     }
 }

@@ -1,10 +1,18 @@
 import response from './data.json'
 
 export default () => {
+    // Max value is the maximun error value
+    let maxValue = 0
+
     const ages = Object.entries(response.data).reduce((res, data) => {
         const ages = data[1].reduce((r, d) => {
+            const error = {}
+            maxValue = Math.max(...[...d.error, maxValue])
+
+            // data[0] could be 'varones' or 'mujeres'
+            error[data[0]] = d.error
             r[d.name] = {
-                error: d.error
+                error
             }
 
             // data[0] could be 'varones' or 'mujeres'
@@ -16,7 +24,7 @@ export default () => {
         if (res === {}) {
             return ages
         } else {
-            // If res is not empty, map values based on the same age range 
+            // If res is not empty, map values based on the same age range
             // and merge error in the same array
             Object.entries(ages).forEach(([age, val]) => {
                 if (res[age]) {
@@ -25,7 +33,10 @@ export default () => {
                         ...res[age],
                         ...val,
                         // and merge error from 'varones' and 'mujeres'
-                        error: res[age].error.concat(val.error)
+                        error: {
+                            ...res[age].error,
+                            ...val.error
+                        }
                     }
                 } else {
                     res[age] = val
@@ -44,10 +55,8 @@ export default () => {
         return res
     }, [])
 
-    const max = data.reduce((res, data) => Math.max(...[...data.error, res]), 0)
-
     return {
         data,
-        maxValue: Math.round(max + 10),
+        maxValue: Math.round(maxValue + 5),
     }
 }

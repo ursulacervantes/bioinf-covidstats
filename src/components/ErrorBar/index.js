@@ -27,8 +27,9 @@ const CustomBarComponent = ({
 
     theme,
 }) => {
-    const y1 = (data.data[data.id] - data.data.error[0]) * 15
-    const y2 = (data.data[data.id] - data.data.error[1]) * 15
+    const error = data.data.error[data.id] ? data.data.error[data.id] : data.data.error
+    const y1 = (data.data[data.id] - error[0]) * 5
+    const y2 = (data.data[data.id] - error[1]) * 5
     const x1 = (width / 2)
 
     const handleTooltip = e => showTooltip(tooltip, e)

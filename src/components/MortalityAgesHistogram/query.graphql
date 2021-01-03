@@ -10,7 +10,10 @@ query(
                 ages
                 varones
                 mujeres
-                error
+                error {
+                    mujeres
+                    varones
+                }
             }
             maxValue
         }
