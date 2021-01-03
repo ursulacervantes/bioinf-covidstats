@@ -23,7 +23,8 @@ const MortalityAgesHistogram = () => {
 
     return (
         <ResponsiveBar
-            data={data.results}
+            data={data.results.data}
+            maxValue={data.results.maxValue}
             groupMode={"grouped"}
             indexBy={"ages"}
             keys={["varones", "mujeres"]}

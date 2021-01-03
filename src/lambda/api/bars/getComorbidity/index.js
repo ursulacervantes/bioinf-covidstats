@@ -3,10 +3,15 @@ import resolver from './resolver.js'
 
 const definition = gql`
 
-  type Comorbidity {
+  type ComorbidityData {
     name: String
     value: Float
     error: [Float]
+  }
+
+  type Comorbidity {
+    data: [ComorbidityData]
+    maxValue: Int
   }
 
 `
@@ -15,7 +20,7 @@ const query = `getComorbidity(
   dateFrom: String
   dateTo: String
   sex: String
-): [Comorbidity]`
+): Comorbidity`
 
 export default {
     query,

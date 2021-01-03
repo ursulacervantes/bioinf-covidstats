@@ -6,9 +6,12 @@ query(
             dateFrom: $dateFrom
             dateTo: $dateTo
         ) {
-            ages
-            varones
-            mujeres
-            error
+            data {
+                ages
+                varones
+                mujeres
+                error
+            }
+            maxValue
         }
     }

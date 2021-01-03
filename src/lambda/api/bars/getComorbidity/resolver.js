@@ -1,10 +1,11 @@
-export default () => (
-    [
-        { "name": "N/A", "value": 14.1, "error": [13.8, 14.5] },
-        { "name": "Cáncer", "value": 25.2, "error": [23, 27] },
-        { "name": "Cardiovascular", "value": 27, "error": [25.5, 29.25] },
-        { "name": "Diabetes", "value": 22.25, "error": [20.15, 24.2] },
-        { "name": "Pulmonar", "value": 24.85, "error": [22.75, 26.35] },
-        { "name": "Fumador", "value": 21.01, "error": [19.8, 22.3] }
-    ]
-)
+import response from './data.json'
+
+export default () => {
+
+    const max = response.data.reduce((res, data) => Math.max(...[...data.error, res]), 0)
+
+    return {
+        data: response.data,
+        maxValue: Math.round(max + 10)
+    }
+}

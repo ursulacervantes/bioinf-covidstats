@@ -23,7 +23,7 @@ const ComorbidityBar = () => {
     }
 
     return (
-        <ErrorBar data={data.results} indexBy={"name"} maxValue={35} />
+        <ErrorBar data={data.results.data} indexBy={"name"} maxValue={data.results.maxValue} />
     )
 }
 

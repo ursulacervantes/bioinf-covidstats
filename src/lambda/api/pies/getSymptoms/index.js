@@ -6,7 +6,6 @@ const definition = gql`
   type Symptom {
     name: String
     value: Float
-    label: String
     id: String
   }
 

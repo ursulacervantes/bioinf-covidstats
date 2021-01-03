@@ -8,8 +8,11 @@ query(
     dateTo: $dateTo
     sex: $sex
   ) {
-     name
-     value
-     error
+     data {
+      name
+      value
+      error
+     }
+     maxValue
   }
 }

@@ -23,6 +23,7 @@ const SymptomsPie = () => {
     if (loading) {
         return "Cargando"
     }
+
     return (
         <ResponsivePie
             data={data.results}

@@ -1,0 +1,52 @@
+{
+    "data": [
+        {
+            "name": "Fiebre",
+            "value": 51681
+        },
+        {
+            "name": "Fatiga",
+            "value": 45903
+        },
+        {
+            "name": "Tos",
+            "value": 40767
+        },
+        {
+            "name": "Flema",
+            "value": 21507
+        },
+        {
+            "name": "Dificultad para respirar",
+            "value": 17334
+        },
+        {
+            "name": "Dolor muscular",
+            "value": 16371
+        },
+        {
+            "name": "Dolor de garganta",
+            "value": 13482
+        },
+        {
+            "name": "Cefalea",
+            "value": 5457
+        },
+        {
+            "name": "Escalofríos",
+            "value": 5467
+        },
+        {
+            "name": "Nauseas",
+            "value": 5136
+        },
+        {
+            "name": "Congestion",
+            "value": 5011
+        },
+        {
+            "name": "Diarrea",
+            "value": 936
+        }
+    ]
+}
