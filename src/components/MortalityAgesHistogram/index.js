@@ -5,11 +5,13 @@ import ErrorBar from 'components/ErrorBar'
 
 const query = loader('./query.graphql');
 
-const MortalityAgesHistogram = () => {
+const MortalityAgesHistogram = ({ dates }) => {
+    const [dateFrom, dateTo] = dates
+
     const { data, loading, error } = useQuery(query, {
         variables: {
-            dateFrom: "",
-            dateTo: "",
+            dateFrom,
+            dateTo,
         },
     })
 

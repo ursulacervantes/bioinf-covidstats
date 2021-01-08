@@ -5,11 +5,14 @@ import { ResponsivePie } from '@nivo/pie'
 
 const query = loader('./query.graphql');
 
-const SymptomsPie = () => {
+const SymptomsPie = ({ dates }) => {
+
+    const [dateFrom, dateTo] = dates
+
     const { data, loading, error } = useQuery(query, {
         variables: {
-            dateFrom: "",
-            dateTo: "",
+            dateFrom,
+            dateTo,
             sex: "",
             bloodType: "",
             HRFactor: "",

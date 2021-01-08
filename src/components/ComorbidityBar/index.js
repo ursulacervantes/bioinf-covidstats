@@ -5,11 +5,14 @@ import ErrorBar from 'components/ErrorBar'
 
 const currentUserQuery = loader('./query.graphql');
 
-const ComorbidityBar = () => {
+const ComorbidityBar = ({dates}) => {
+
+    const [dateFrom, dateTo] = dates
+
     const { data, loading, error } = useQuery(currentUserQuery, {
         variables: {
-            dateFrom: "",
-            dateTo: "",
+            dateFrom,
+            dateTo,
             sex: "",
         },
     })
