@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { loader } from 'graphql.macro';
 
@@ -27,11 +28,13 @@ const ComorbidityBar = ({dates, sex}) => {
     }
 
     return (
-        <>
-            
-            <ErrorBar data={data.results.data} indexBy={"name"} maxValue={data.results.maxValue} />
-        </>
+        <ErrorBar data={data.results.data} indexBy={"name"} maxValue={data.results.maxValue} />
     )
 }
+
+ComorbidityBar.propTypes = {
+    dates: PropTypes.arrayOf(PropTypes.object).isRequired,
+    sex: PropTypes.string.isRequired,
+};
 
 export default ComorbidityBar

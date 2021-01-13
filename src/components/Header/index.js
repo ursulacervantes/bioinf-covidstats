@@ -5,14 +5,14 @@ import styles, { linkItem } from './styles'
 
 const HeaderWrapper = createComponent(styles.header, 'header', ['role'])
 const NavigationWrapper = createComponent(styles.wrapper, 'div', ['role'])
-const LogoWrapper = createComponent(styles.logoWrapper, 'div', ['role'])
+const LogoWrapper = createComponent(styles.logoWrapper, 'div')
 const LinksWrapper = createComponent(styles.linksWrapper, 'div')
 const Action = createComponent(styles.link, 'div')
 
 const Header = () => {
     return (
-        <HeaderWrapper>
-            <NavigationWrapper>
+        <HeaderWrapper role="banner">
+            <NavigationWrapper role="navigation">
                 <LogoWrapper>
                     <Link to="/" style={linkItem}>ARIM</Link>
                 </LogoWrapper>

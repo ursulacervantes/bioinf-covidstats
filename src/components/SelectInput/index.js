@@ -35,6 +35,6 @@ SelectInput.propTypes = {
     label: PropTypes.string.isRequired,
     options: PropTypes.array.isRequired,
     isMultiple: PropTypes.bool,
-};
+}
 
 export default SelectInput

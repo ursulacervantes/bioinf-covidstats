@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { loader } from 'graphql.macro';
 import { ResponsivePie } from '@nivo/pie'
@@ -46,6 +47,13 @@ const SymptomsPie = ({ dates, sex, bloodType, HRFactor }) => {
             sliceLabelsTextColor="#333333"
         />
     )
+}
+
+SymptomsPie.propTypes = {
+    dates: PropTypes.arrayOf(PropTypes.object).isRequired,
+    sex: PropTypes.string.isRequired,
+    bloodType: PropTypes.string.isRequired,
+    HRFactor: PropTypes.string.isRequired,
 }
 
 export default SymptomsPie

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { loader } from 'graphql.macro';
 import ErrorBar from 'components/ErrorBar'
@@ -73,5 +74,10 @@ const MortalityAgesHistogram = ({ dates }) => {
         />
     )
 }
+
+MortalityAgesHistogram.propTypes = {
+    dates: PropTypes.arrayOf(PropTypes.object).isRequired,
+}
+
 
 export default MortalityAgesHistogram

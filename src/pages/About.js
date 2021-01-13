@@ -5,17 +5,16 @@ import Team from 'components/Team'
 
 const props = {
     titlePrimary: 'Acerca del proyecto',
-    content: `La información que presentamos busca 
-    ayudar a entender el comportamiento/sintomatología de la 
-    enfermedad de los pacientes en el Perú.`
+    content: `La información que presentamos busca ayudar a entender el
+    comportamiento/sintomatología de la enfermedad de los pacientes en el Perú.`
 }
 
 const About = () => {
     return (
-        <div>
+        <>
             <IntroBanner {...props} />
             <Team />
-        </div>
+        </>
     )
 }
 
