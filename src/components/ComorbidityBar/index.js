@@ -1,11 +1,12 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { loader } from 'graphql.macro';
+
 import ErrorBar from 'components/ErrorBar'
 
 const currentUserQuery = loader('./query.graphql');
 
-const ComorbidityBar = ({dates}) => {
+const ComorbidityBar = ({dates, sex}) => {
 
     const [dateFrom, dateTo] = dates
 
@@ -13,7 +14,7 @@ const ComorbidityBar = ({dates}) => {
         variables: {
             dateFrom,
             dateTo,
-            sex: "",
+            sex,
         },
     })
 
@@ -26,7 +27,10 @@ const ComorbidityBar = ({dates}) => {
     }
 
     return (
-        <ErrorBar data={data.results.data} indexBy={"name"} maxValue={data.results.maxValue} />
+        <>
+            
+            <ErrorBar data={data.results.data} indexBy={"name"} maxValue={data.results.maxValue} />
+        </>
     )
 }
 

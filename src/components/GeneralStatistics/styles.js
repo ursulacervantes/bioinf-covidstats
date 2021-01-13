@@ -9,9 +9,9 @@ const box = {
     flexWrap: 'wrap',
 }
 
-const boxItem = {
-    flex: '50%',
-}
+const boxItem = ({small}) => ({
+    flex: small ? '33%' : '50%',
+})
 
 const chart = {
     height: "20rem",

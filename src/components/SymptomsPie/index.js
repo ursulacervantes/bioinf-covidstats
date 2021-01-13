@@ -5,7 +5,7 @@ import { ResponsivePie } from '@nivo/pie'
 
 const query = loader('./query.graphql');
 
-const SymptomsPie = ({ dates }) => {
+const SymptomsPie = ({ dates, sex, bloodType, HRFactor }) => {
 
     const [dateFrom, dateTo] = dates
 
@@ -13,9 +13,9 @@ const SymptomsPie = ({ dates }) => {
         variables: {
             dateFrom,
             dateTo,
-            sex: "",
-            bloodType: "",
-            HRFactor: "",
+            sex,
+            bloodType,
+            HRFactor,
         },
     })
 
